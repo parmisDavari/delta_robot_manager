@@ -26,7 +26,8 @@ class DeltaManager():
         if self.gripper:
             self.open_gripper()
         else:
-            raise Exception("Gripper not found")
+            # raise Exception("Gripper not found")
+            print("Gripper not found")
 
     def get_all_ports(self, ):
         return [tuple(p) for p in list(port_list.comports())]
