@@ -13,9 +13,10 @@ class DeltaManager():
 
     ## Gripper functions
     def connect_gripper(self, ):
+        self.gripper = None
         available_ports = self.get_all_ports()
         for port in available_ports:
-            if 'COM' in self.get_port_name(port) || 'ttyACM' in self.get_port_name(port):  #TODO: check if this works on linux
+            if 'COM' in self.get_port_name(port) or 'ttyACM' in self.get_port_name(port):  #TODO: check if this works on linux
                 self.gripper = serial.Serial(
                     self.get_port_name(port), 
                     SERIAL_BAUD_RATE, 
