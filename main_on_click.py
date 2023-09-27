@@ -15,8 +15,8 @@ def click_event(event, u, v, flags, params):
         [x, y, z] = Camera.calculate_robot_XYZ(
             (u, v), 
             z_obj, 
-            robot_capturing_coord=np.array([0,0,-37]),
-            offset_valid=True
+            gripper='2f85',
+            robot_capturing_coord=np.array([0,0,-37])
         )
 
         print(f'Robot: ({x:.2f}, {y:.2f}, {z:.2f})')
