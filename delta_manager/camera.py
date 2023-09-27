@@ -2,12 +2,17 @@ import cv2
 import numpy as np
 
 
-def calculate_robot_XYZ(pixel, z_obj=0, robot_capturing_coord=np.array([0,0,-37]), offset_valid=True):
+def calculate_robot_XYZ(pixel, z_obj=0, gripper='2f85', robot_capturing_coord=np.array([0,0,-37]), offset_valid=True):
     
     default_robot_hight = 37
     camera_hight = 50
-    max_z_end_effector = 65.75 #2f85
-    max_z_end_effector = 70  #Ehand
+    if gripper == '2f85':
+        max_z_end_effector = 65.75
+    elif gripper == 'Ehand':
+        max_z_end_effector = 70
+    else:
+        raise Exception('Invalid gripper type')
+        
 
     if offset_valid:
         robot_homming_offset = np.load('./delta_manager/parameters/homming_offset.npy')
