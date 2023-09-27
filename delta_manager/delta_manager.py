@@ -19,7 +19,7 @@ class DeltaManager():
             if 'COM' in self.get_port_name(port) or 'ttyACM' in self.get_port_name(port):  #TODO: check if this works on linux
                 self.gripper = serial.Serial(
                     self.get_port_name(port), 
-                    SERIAL_BAUD_RATE, 
+                    self.SERIAL_BAUD_RATE, 
                     timeout=None
                 )    
         
@@ -37,21 +37,21 @@ class DeltaManager():
     
     def open_gripper(self, ):
         self.gripper.write(f"h".encode("utf-8"))
-        # wait_till_done()
+        # self.wait_till_done()
 
     def close_gripper(self, ):
         self.gripper.write(f"g".encode("utf-8"))
-        # wait_till_done()
+        # self.wait_till_done()
 
     def rotate_gripper(self, angle):
         # on degree -90:90 (its ralative to the current angle)
         self.gripper.write(f"r{angle}".encode("utf-8"))
-        wait_till_done()
+        self.wait_till_done()
 
     def force_gripper(self, force):
         # int from 1 to 5000
         self.gripper.write(f"f{force}".encode("utf-8"))
-        wait_till_done()
+        self.wait_till_done()
     
     def wait_till_done(self, ):
         while 1:
@@ -70,11 +70,11 @@ class DeltaManager():
 
     def go_home(self, ):
         Client.order("move", f"0,0,-37")
-        wait_till_done_robot()
+        self.wait_till_done_robot()
 
     def move(self, x, y, z):
         Client.order("move", f"{x},{y},{z}")
-        wait_till_done_robot()
+        self.wait_till_done_robot()
 
     def read_forward(self, ):
         Client.order("command", "forward")
