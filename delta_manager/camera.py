@@ -6,7 +6,8 @@ def calculate_robot_XYZ(pixel, z_obj=0, robot_capturing_coord=np.array([0,0,-37]
     
     default_robot_hight = 37
     camera_hight = 50
-    max_z_end_effector_2f85 = 65.75
+    max_z_end_effector = 65.75 #2f85
+    max_z_end_effector = 70  #Ehand
 
     if offset_valid:
         robot_homming_offset = np.load('./delta_manager/parameters/homming_offset.npy')
@@ -22,7 +23,7 @@ def calculate_robot_XYZ(pixel, z_obj=0, robot_capturing_coord=np.array([0,0,-37]
     p00, p01, p10, p11 = np.poly1d(values_tr00), np.poly1d(values_tr01), np.poly1d(values_tr10), np.poly1d(values_tr11)
     tr_hight = np.array([[p00(H), p01(H), 0], [p10(H), p11(H), 0], [0, 0, 0]])
     offp0, offp1 = np.poly1d(values_off0),  np.poly1d(values_off1)
-    offset_hight = np.array([offp0(H), offp1(H), -max_z_end_effector_2f85 +camera_hight -H]) + (robot_capturing_coord + robot_homming_offset)
+    offset_hight = np.array([offp0(H), offp1(H), -max_z_end_effector +camera_hight -H]) + (robot_capturing_coord + robot_homming_offset)
 
     robot_coordinates = np.dot([pixel[0],pixel[1],0], tr_hight) + offset_hight
 
