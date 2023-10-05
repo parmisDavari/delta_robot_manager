@@ -24,7 +24,8 @@ class DeltaManager():
                 )    
         
         if self.gripper:
-            self.open_gripper()
+            self.gripper.write(f"\r\n".encode("utf-8"))
+            time.sleep(5)
         else:
             # raise Exception("Gripper not found")
             print("Gripper not found")
