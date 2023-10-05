@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import PySimpleGUI as psg
 import delta_manager.camera as Camera
 from delta_manager.delta_manager import DeltaManager
 
