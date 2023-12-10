@@ -42,6 +42,7 @@ class DeltaManager():
 
     def close_gripper(self, ):
         self.gripper.write(f"g".encode("utf-8"))
+        self.gripper.reset_input_buffer()
         # self.wait_till_done()
 
     def rotate_gripper(self, angle):
