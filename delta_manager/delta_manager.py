@@ -77,6 +77,10 @@ class DeltaManager():
     def move(self, x, y, z):
         Client.order("move", f"{x},{y},{z}")
         self.wait_till_done_robot()
+        
+    def move_with_time(self, x, y, z, t):
+        Client.order("movefast", f"{x},{y},{z},{t}")
+        self.wait_till_done_robot()
 
     def read_forward(self, ):
         Client.order("command", "forward")
