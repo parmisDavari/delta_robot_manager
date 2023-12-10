@@ -13,7 +13,7 @@ import struct
 Result = ""
 
 class Message:
-  
+
     def __init__(self, selector, sock, addr, request):
         self.selector = selector
         self.sock = sock
@@ -220,7 +220,7 @@ def order(act, comm):
     sel = selectors.DefaultSelector()
 
     def create_request(action, value):
-        if action == "command" or action == "move":
+        if action == "command" or action == "move" or action == "movefast":
             return dict(
                 type="text/json",
                 encoding="utf-8",
