@@ -1,6 +1,6 @@
 # delta_robot_manager
 # To use Delta and Gripper commands follow these instructions:
-## Import these libraries...
+## Import this library
 ```
 from delta_manager.delta_manager import DeltaManager
 ```
@@ -10,7 +10,12 @@ Delta = DeltaManager()
 ```
 # Commands you can use:
 
-## To use the Gripper connect to it using its USB cable and turn its power on then use this line to connect to the Gripper 
+## Write this line to connect to the Gripper 
+>[!NOTE]
+> Connect to the Gripper using its USB cable and turn its power on
+
+>[!Caution]
+> DO NOT REMOVE THE USB CABLE WHILE THE POWER IS ON
 ```
 Delta.connect_gripper()
 ```
@@ -29,33 +34,51 @@ Delta.close_gripper()
 ```
 ### Gripper close with feedback:
 ```
-Delta.close_gripper_with_feedback() # Returns the result of Grasping: "DoneGrasp" or "failed"
+Delta.close_gripper_with_feedback()
 ```
+>[!NOTE]
+> Returns the result of Grasping: "DoneGrasp" or "failed"
+
 ### Gripper rotate:
 ```
-Delta.rotate_gripper(angle): # On degree -90:90 (it is relative to the current angle)
+Delta.rotate_gripper(angle):
 ```
+> [!NOTE]
+> Angle in degree -90:90 (it is relative to the current angle)
+
 ### Gripper force:
 ```
-Delta.force_gripper(force): # int from 1 to 5000 uncomment and ask Navid Asadi if you want to use. 
+Delta.force_gripper(force):
 ```
+>[!NOTE]
+> int from 1 to 5000 uncomment it from delta_manager.py and ask Navid Asadi if you want to use.
+
 ### Gripper wait:
 ```
 Delta.wait_till_done()
 ```
-# Delta Parallel Robot(DPR) functions(connect to Taarlabs WIFI):
+# Delta Parallel Robot(DPR) functions:
+>[!NOTE]
+> Connect to Taarlabs WIFI
+
 ### Delta home:
 ```
 Delta.go_home()
 ```
 ### Delta move:
 ```
-Delta.move(x, y, z) # Moves in 8 seconds
+Delta.move(x, y, z)
 ```
+>[!NOTE]
+>Moves in 8 seconds
+
 ### Delta move with the given time:
 ```
-Delta.move_with_time(x, y, z, t) # Don't use times less than 3 seconds ask Navid Pasiar or Arvin Mohammadi if you want.
+Delta.move_with_time(x, y, z, t)
 ```
+>[!WARNING]
+> Don't use times less than 3 seconds ask Navid Pasiar or Arvin Mohammadi if you want.
+
 ### Delta wait till done:
 ```
 Delta.wait_till_done_robot()
@@ -70,8 +93,10 @@ Delta.delta_stop_server()
 ```
 
 # To use camera coordinates to move Delta follow these instructions:
-
-## To correct robots homming Error move the robot to (0,0,-37) and Run set_homming_offset.py, click on the corner of the grid on the robots base.
+>[!IMPORTANT]
+> Move the robot to (0,0,-37)
+>
+## To correct robots homming Error run set_homming_offset.py, click on the corner of the grid on the robots base.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Images/Calibration_offset_correction.jpg">
   <source media="(prefers-color-scheme: light)" srcset="Images/Calibration_offset_correction.jpg">
