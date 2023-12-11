@@ -10,7 +10,7 @@ Delta = DeltaManager()
 ```
 # Commands you can use:
 
-## To use Gripper connect to it using its USB cable and turn its power on then use this line to connect to the Gripper 
+## To use the Gripper connect to it using its USB cable and turn its power on then use this line to connect to the Gripper 
 ```
 Delta.connect_gripper()
 ```
@@ -33,7 +33,7 @@ Delta.close_gripper_with_feedback() # Returns the result of Grasping: "DoneGrasp
 ```
 ### Gripper rotate:
 ```
-Delta.rotate_gripper(angle): # On degree -90:90 (its ralative to the current angle)
+Delta.rotate_gripper(angle): # On degree -90:90 (it is relative to the current angle)
 ```
 ### Gripper force:
 ```
@@ -52,9 +52,9 @@ Delta.go_home()
 ```
 Delta.move(x, y, z) # Moves in 8 seconds
 ```
-### Delta move with given time:
+### Delta move with the given time:
 ```
-Delta.move_with_time(x, y, z, t) # Dont use times less than 3 seconds ask Navid Pasiar or Arvin Mohammadi if you want.
+Delta.move_with_time(x, y, z, t) # Don't use times less than 3 seconds ask Navid Pasiar or Arvin Mohammadi if you want.
 ```
 ### Delta wait till done:
 ```
@@ -71,8 +71,13 @@ Delta.delta_stop_server()
 
 # To use camera coordinates to move Delta follow these instructions:
 
-## To correct robots homming Error move the robot to (0,0,-37) and Run set_homming_offset.py ,click on the corner of the grid on robots base.
-! [Correct the homing offset](Images/Calibration_offset_correction.jpg)
+## To correct robots homming Error move the robot to (0,0,-37) and Run set_homming_offset.py, click on the corner of the grid on the robots base.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Images/Calibration_offset_correction.jpg">
+  <source media="(prefers-color-scheme: light)" srcset="Images/Calibration_offset_correction.jpg">
+  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="Images/Calibration_offset_correction.jpg">
+</picture>
+
 
 ## Import these libraries
 ```
@@ -91,14 +96,14 @@ while True:
     # Undistort the frame
     frame = Camera.undistort(frame)    
 ```
-## To convert (U,V) pixel coordinate to (X,Y,Z) Delta Parallel Robot use:
+## To convert (U, V) pixel coordinates to (X, Y, Z) Delta Parallel Robot use:
 ```
 using_fom_flag = input("Are you using fom?(Y/N)")
 if using_fom_flag.upper() == "Y":
     z_fom = 2
 else:
     z_fom = 0
-z_obj = 1.9 # put your objects height here
+z_obj = 1.9 # Put your objects height here
 
 [x, y, z] = Camera.pixel_to_robot_coordinates(
     (u, v), 
@@ -107,7 +112,7 @@ z_obj = 1.9 # put your objects height here
     gripper='2f85',
     robot_capturing_coord=np.array(Delta.read_forward())
 )
-z -= z_obj # if your objects height is short
+z -= z_obj # if the height of your objects is short
 # else z -= 2 or 3 cm
 
 ```
