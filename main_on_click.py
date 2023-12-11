@@ -64,7 +64,7 @@ while True:
     elif key_pressed == ord('o'):
         Delta.open_gripper()
     elif key_pressed == ord('l'):
-        Delta.open_a_little_gripper()
+        Delta.open_gripper_aBit()
     elif key_pressed == ord('c'):
         Delta.close_gripper()
     elif key_pressed == ord('h'): 
