@@ -14,10 +14,9 @@ def calculate_transformation_matrix(camera_height, max_z_end_effector, default_r
 
     return tr_height, offset_height
 
-def pixel_to_robot_coordinates(pixel, z_obj=0, gripper='2f85', robot_capturing_coord=np.array([0,0,-37]), offset_valid=True):
+def pixel_to_robot_coordinates(pixel, camera_height=50, z_obj=0, gripper='2f85', robot_capturing_coord=np.array([0,0,-37]), offset_valid=True):
     
     default_robot_height = 37
-    camera_height = 50
     if gripper == '2f85':
         max_z_end_effector = 65.75
     elif gripper == 'Ehand':
@@ -39,10 +38,9 @@ def pixel_to_robot_coordinates(pixel, z_obj=0, gripper='2f85', robot_capturing_c
 
     return robot_coordinates
 
-def robot_coordinates_to_pixel(robot_coordinates, z_obj=0, gripper='2f85', robot_capturing_coord=np.array([0,0,-37]), offset_valid=True):
+def robot_coordinates_to_pixel(robot_coordinates, camera_height=50, z_obj=0, gripper='2f85', robot_capturing_coord=np.array([0,0,-37]), offset_valid=True):
 
     default_robot_height = 37
-    camera_height = 50
     if gripper == '2f85':
         max_z_end_effector = 65.75
     elif gripper == 'Ehand':
