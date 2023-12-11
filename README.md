@@ -72,7 +72,7 @@ Delta.delta_stop_server()
 # To use camera coordinates to move Delta follow these instructions:
 
 ## To correct robots homming Error move the robot to (0,0,-37) and Run set_homming_offset.py ,click on the corner of the grid on robots base.
-! [Correct the homming offset](Images/Calibration_offset_correction.jpg)
+! [Correct the homing offset](Images/Calibration_offset_correction.jpg)
 
 ## Import these libraries
 ```
