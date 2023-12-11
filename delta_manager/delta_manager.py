@@ -42,21 +42,38 @@ class DeltaManager():
         # self.wait_till_done()
         print("opening gripper")
 
+    def open_gripper_aBit(self, ):
+        self.gripper.write(f"o".encode("utf-8"))
+        # self.wait_till_done()
+        print("opening gripper a little bit")
+
     def close_gripper(self, ):
         self.gripper.write(f"g".encode("utf-8"))
         self.gripper.reset_input_buffer()
-        # self.wait_till_done()
+        self.wait_till_done()
         print("closing gripper")
+
+    def close_gripper_with_feedback(self, ):
+        self.gripper.write(f"g".encode("utf-8"))
+        print("closing gripper")
+        self.gripper.reset_input_buffer()        
+        while 1:
+            result = self.gripper.readline().decode("utf-8")
+            print(f"Gripper: {result}")
+            if result[0:4] == "Done" or result[0:6] == "failed":
+                break
+        return result
 
     def rotate_gripper(self, angle):
         # on degree -90:90 (its ralative to the current angle)
+        angle = int(angle)
         self.gripper.write(f"r{angle}".encode("utf-8"))
         # self.wait_till_done()
         print(f"rotating gripper to {angle} degrees")
 
     def force_gripper(self, force):
         # int from 1 to 5000
-        # self.gripper.write(f"f{force}".encode("utf-8"))
+        # self.gripper.write(f"f{int(force)}".encode("utf-8"))
         # self.wait_till_done()
         print(f"setting gripper force to {force}")
     
@@ -81,11 +98,17 @@ class DeltaManager():
         print("going home")
 
     def move(self, x, y, z):
+        if z>0:
+            z = -z
+            print("PLEASE ENTER NEGATIVE NUMBERS BETWEEN -37,-65")
         Client.order("move", f"{x},{y},{z}")
         self.wait_till_done_robot()
         print(f'moving to {x}, {y}, {z}')
         
     def move_with_time(self, x, y, z, t):
+        if z>0:
+            z = -z
+            print("PLEASE ENTER NEGATIVE NUMBERS BETWEEN -37,-65")
         Client.order("movefast", f"{x},{y},{z},{t}")
         self.wait_till_done_robot()
 
@@ -93,3 +116,7 @@ class DeltaManager():
         Client.order("command", "forward")
         robot_current_coordinate = [Client.Result[1], Client.Result[2], Client.Result[3]]
         return robot_current_coordinate
+
+    def delta_stop_server(self, ):
+        Client.order("command", "stop")
+        print('Delta is now offline...')
