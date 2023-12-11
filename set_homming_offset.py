@@ -7,7 +7,7 @@ def click_event(event, u, v, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
         print(f'Pixel: ({u}, {v})')
         
-        [x, y, z] = Camera.calculate_robot_XYZ(
+        [x, y, z] = Camera.pixel_to_robot_coordinates(
             (u, v), 
             z_obj=0, 
             robot_capturing_coord=np.array([0,0,-37]),
@@ -26,7 +26,7 @@ def click_event(event, u, v, flags, params):
         exit(0)
 
 
-cap = cv2.VideoCapture(2, cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
 
 while True:
     _, frame = cap.read()

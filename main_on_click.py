@@ -8,19 +8,21 @@ def click_event(event, u, v, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
         print(f'Pixel: ({u}, {v})')
 
-        z_obj = 0
-        # print(Delta.read_forward())
-
-        [x, y, z] = Camera.calculate_robot_XYZ(
+        z_fom = 2
+        z_obj = 1.9
+        
+        [x, y, z] = Camera.pixel_to_robot_coordinates(
             (u, v), 
-            z_obj, 
+            camera_height=48.8,
+            z_obj=z_fom+z_obj, 
             gripper='2f85',
-            robot_capturing_coord=np.array([0,0,-37])
+            robot_capturing_coord=np.array(Delta.read_forward())
         )
-
+        z -= z_obj
         print(f'Robot: ({x:.2f}, {y:.2f}, {z:.2f})')
 
-        Delta.move(x, y, z)
+        Delta.move_with_time(x, y, z+10, 3)
+        Delta.move_with_time(x, y, z, 3)
 
 
 Delta = DeltaManager()
@@ -34,7 +36,7 @@ while True:
     _, frame = cap.read()
 
     # Undistort the frame
-    undist_frame = Camera.undistort(frame)
+    frame = Camera.undistort(frame)
     
     # Image show
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
@@ -50,8 +52,19 @@ while True:
         cv2.imwrite('./Images/image'+str(image_counter)+'.jpg', frame)
         print(f'image {image_counter} saved.')
         image_counter += 1
+    elif key_pressed == ord('f'):
+        current_position = Delta.read_forward()
+        print(f'Current position: {current_position}')
+    elif key_pressed == ord('u'):
+        x,y,z = Delta.read_forward()
+        Delta.move_with_time(x, y, z+0.5, 2)
+    elif key_pressed == ord('d'):
+        x,y,z = Delta.read_forward()
+        Delta.move_with_time(x, y, z-0.5, 2)
     elif key_pressed == ord('o'):
         Delta.open_gripper()
+    elif key_pressed == ord('l'):
+        Delta.open_a_little_gripper()
     elif key_pressed == ord('c'):
         Delta.close_gripper()
     elif key_pressed == ord('h'): 

@@ -25,6 +25,7 @@ class DeltaManager():
         
         if self.gripper:
             self.gripper.write(f"\r\n".encode("utf-8"))
+            print("Gripper connected")
             time.sleep(5)
         else:
             # raise Exception("Gripper not found")
@@ -39,21 +40,25 @@ class DeltaManager():
     def open_gripper(self, ):
         self.gripper.write(f"h".encode("utf-8"))
         # self.wait_till_done()
+        print("opening gripper")
 
     def close_gripper(self, ):
         self.gripper.write(f"g".encode("utf-8"))
         self.gripper.reset_input_buffer()
         # self.wait_till_done()
+        print("closing gripper")
 
     def rotate_gripper(self, angle):
         # on degree -90:90 (its ralative to the current angle)
         self.gripper.write(f"r{angle}".encode("utf-8"))
-        self.wait_till_done()
+        # self.wait_till_done()
+        print(f"rotating gripper to {angle} degrees")
 
     def force_gripper(self, force):
         # int from 1 to 5000
-        self.gripper.write(f"f{force}".encode("utf-8"))
-        self.wait_till_done()
+        # self.gripper.write(f"f{force}".encode("utf-8"))
+        # self.wait_till_done()
+        print(f"setting gripper force to {force}")
     
     def wait_till_done(self, ):
         while 1:
@@ -73,10 +78,12 @@ class DeltaManager():
     def go_home(self, ):
         Client.order("move", f"0,0,-37")
         self.wait_till_done_robot()
+        print("going home")
 
     def move(self, x, y, z):
         Client.order("move", f"{x},{y},{z}")
         self.wait_till_done_robot()
+        print(f'moving to {x}, {y}, {z}')
         
     def move_with_time(self, x, y, z, t):
         Client.order("movefast", f"{x},{y},{z},{t}")
