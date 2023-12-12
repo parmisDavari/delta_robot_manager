@@ -42,7 +42,7 @@ class DeltaManager():
         # self.wait_till_done()
         print("opening gripper")
 
-    def open_gripper_aBit(self, ):
+    def open_gripper_slightly(self, ):
         self.gripper.write(f"o".encode("utf-8"))
         # self.wait_till_done()
         print("opening gripper a little bit")
@@ -93,8 +93,8 @@ class DeltaManager():
                 break
 
     def go_home(self, ):
-        Client.order("move", f"0,0,-37")
-        self.wait_till_done_robot()
+        self.move_with_time(0, 0, -37, 4)
+        # self.wait_till_done_robot()
         print("going home")
 
     def move(self, x, y, z):
