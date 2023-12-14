@@ -39,50 +39,49 @@ class DeltaManager():
     
     def open_gripper(self, ):
         self.gripper.write(f"h".encode("utf-8"))
-        # self.wait_till_done()
+        # self.wait_till_done_gripper()
         print("opening gripper")
 
-    def open_gripper_aBit(self, ):
+    def open_gripper_slightly(self, ):
         self.gripper.write(f"o".encode("utf-8"))
-        # self.wait_till_done()
+        # self.wait_till_done_gripper()
         print("opening gripper a little bit")
 
     def close_gripper(self, ):
         self.gripper.write(f"g".encode("utf-8"))
         self.gripper.reset_input_buffer()
-        # self.wait_till_done()
+        self.wait_till_done_gripper()
         print("closing gripper")
 
     def close_gripper_with_feedback(self, ):
         self.gripper.write(f"g".encode("utf-8"))
         print("closing gripper")
-        self.gripper.reset_input_buffer()        
-        while 1:
-            result = self.gripper.readline().decode("utf-8")
-            print(f"Gripper: {result}")
-            if result[0] == "D" or result[0] == "f":
-                break
+        self.gripper.reset_input_buffer()
+        result = self.wait_till_done_gripper(wait_for_failed=True)
         return result
 
     def rotate_gripper(self, angle):
         # on degree -90:90 (its ralative to the current angle)
         angle = int(angle)
         self.gripper.write(f"r{angle}".encode("utf-8"))
-        # self.wait_till_done()
+        self.wait_till_done_gripper()
         print(f"rotating gripper to {angle} degrees")
 
     def force_gripper(self, force):
         # int from 1 to 5000
         # self.gripper.write(f"f{int(force)}".encode("utf-8"))
-        # self.wait_till_done()
+        # self.wait_till_done_gripper()
         print(f"setting gripper force to {force}")
     
-    def wait_till_done(self, ):
+    def wait_till_done_gripper(self, wait_for_failed=False):
         while 1:
             result = self.gripper.readline().decode("utf-8")
             print(f"Gripper: {result}")
             if result[0:4] == "Done":
                 break
+            elif result[0:6] == "failed" and wait_for_failed:
+                break
+        return result
 
     ## Delta functions
     def wait_till_done_robot(self, ):
@@ -91,9 +90,10 @@ class DeltaManager():
             print(f"Robot: {result}")
             if result == "success":
                 break
+        return result
 
     def go_home(self, ):
-        Client.order("move", f"0,0,-37")
+        self.move(0, 0, -37)
         self.wait_till_done_robot()
         print("going home")
 
