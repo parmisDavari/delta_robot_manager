@@ -13,7 +13,7 @@ def click_event(event, u, v, flags, params):
         
         [x, y, z] = Camera.pixel_to_robot_coordinates(
             (u, v), 
-            camera_height=48.8,
+            camera_height=50,
             z_obj=z_fom+z_obj, 
             gripper='2f85',
             robot_capturing_coord=np.array(Delta.read_forward())
@@ -69,6 +69,11 @@ while True:
         Delta.close_gripper()
     elif key_pressed == ord('h'): 
         Delta.go_home()
+    elif key_pressed == ord('e'): 
+        Delta.rotate_gripper(-45)
+    elif key_pressed == ord('q'): 
+        Delta.rotate_gripper(45)
+
 
 cap.release()
 cv2.destroyAllWindows()

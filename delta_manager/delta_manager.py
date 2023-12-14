@@ -50,7 +50,7 @@ class DeltaManager():
     def close_gripper(self, ):
         self.gripper.write(f"g".encode("utf-8"))
         self.gripper.reset_input_buffer()
-        self.wait_till_done()
+        # self.wait_till_done()
         print("closing gripper")
 
     def close_gripper_with_feedback(self, ):
@@ -60,7 +60,7 @@ class DeltaManager():
         while 1:
             result = self.gripper.readline().decode("utf-8")
             print(f"Gripper: {result}")
-            if result[0:4] == "Done" or result[0:6] == "failed":
+            if result[0] == "D" or result[0] == "f":
                 break
         return result
 
