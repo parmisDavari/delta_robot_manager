@@ -120,3 +120,15 @@ class DeltaManager():
     def delta_stop_server(self, ):
         Client.order("command", "stop")
         print('Delta is now offline...')
+
+    def delta_rotate_gripper(self,angle):
+        Client.order("rotate", f"{angle}")
+        print(f'Delta is rotating gripper {angle} degrees')
+
+    def delta_open_gripper(self, ):
+        Client.order("command", "opengripper")
+        print('Delta is now offline...')
+        
+    def delta_close_gripper(self, ):
+        Client.order("command", "closegripper")
+        print('Delta is now offline...')
