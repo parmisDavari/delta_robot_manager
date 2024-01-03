@@ -220,7 +220,7 @@ def order(act, comm):
     sel = selectors.DefaultSelector()
 
     def create_request(action, value):
-        if action == "command" or action == "move" or action == "movefast":
+        if action == "command" or action == "move" or action == "movefast" or action == "rotate":
             return dict(
                 type="text/json",
                 encoding="utf-8",
